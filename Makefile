@@ -1,7 +1,8 @@
 NAME = codexion
 
 CC = cc
-CFLAGS = -g 
+CFLAGS = -g -lpthread
+
 
 SRCS = main.c \
 	   utils/parsing.c \
