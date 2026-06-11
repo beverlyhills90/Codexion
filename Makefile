@@ -7,6 +7,13 @@ CFLAGS = -g -lpthread
 SRCS = main.c \
 	   utils/parsing.c \
 	   utils/helper.c \
+	   init_all/dongles_allocation.c \
+	   init_all/world_data.c \
+	   init_all/coders_alllocation.c \
+	   coders/coders_action.c \
+	   coders/coders.c \
+	   scheduler/fifo.c
+
 
 
 

@@ -15,15 +15,6 @@ void fill_args_struct(char **argv, t_argumnets *arguments)
         arguments->scheduler = 0;
     else
         arguments->scheduler = 1;
-
-    // if (gettimeofday(&time, NULL) != 0)
-    // {
-    //     fprintf(2, "gettimeofday failed");
-    //     return;
-    // }
-    // else
-    //     arguments->time_of_start = time.tv_usec;
-    return;
 }
 
 int ft_isnum(char c)
@@ -64,6 +55,8 @@ int parsing_args(char **argv, int argc, t_argumnets **arguments)
     *arguments = ft_calloc(1, sizeof(t_argumnets));
     if (!arguments)
         return (fprintf(stderr, "allocation failed"), 1);
-    validate_args(argv, argc);
+    if (validate_args(argv, argc) != 0)
+        return (free(*arguments), 1);
     fill_args_struct(argv, *arguments);
+    return (0);
 }
