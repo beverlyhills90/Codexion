@@ -8,6 +8,24 @@
 #include <string.h>
 #include <unistd.h>
 
+typedef enum e_scheduler
+{
+  FIFO,
+  EDF
+} t_scheduler;
+
+typedef enum e_state
+{
+  DONE,
+  NOT_DONE
+} t_state;
+
+typedef enum e_running
+{
+  RUNNING,
+  STOP
+} t_running;
+
 typedef struct s_argumenst
 {
 
@@ -18,11 +36,12 @@ typedef struct s_argumenst
   unsigned long time_to_refactor;
   unsigned long number_of_compiles_required;
   unsigned long dongle_cool_down;
-  int scheduler; // 0 - fifo 1 - edf
+  t_scheduler scheduler;
 
 } t_argumnets;
 
 typedef struct s_coder t_coder;
+typedef struct world_data t_world_data;
 
 typedef struct s_dongle
 {
@@ -37,6 +56,7 @@ typedef struct s_dongle
 
 typedef struct s_coder
 {
+  pthread_mutex_t mutex;
   int coder_id;
   t_dongle *left;
   t_dongle *right;
@@ -44,32 +64,41 @@ typedef struct s_coder
   long long time_from_last_compilation;
   pthread_t thread_id;
   t_argumnets *args;
-  int *is_running;
+  t_world_data *world_data;
+  int is_working;
 } t_coder;
 
 typedef struct world_data
 {
   pthread_mutex_t world_mutex;
-  int is_runnung; // 0 - not 1 - running
-  long long time_of_start;
+  pthread_t thread_id;
+  t_running is_runnung; // 0 - not 1 - running
   t_coder *coders;
   t_dongle *dongles;
   t_argumnets *args;
+  long long time_of_start;
 } t_world_data;
 
 // helper func
 void *ft_calloc(size_t nmemb, size_t size);
 long long get_ms();
-
+void *monitor(void *args);
+t_running safe_world_state(t_world_data *world_data);
+void safe_world_stop(t_world_data *world_data);
+int safe_burnout_cheak(t_coder *coder); // 0 - burned 1 - OK
+t_state safe_coder_state(t_coder *coder);
+unsigned long get_num_of_coders(t_world_data *world_data);
+// schedulers
 void fifo_scheduler_del(t_dongle *dongle);
 void fifo_scheduler_add(t_dongle *dongle, t_coder *coder);
-
+void scheduler_del(t_argumnets *args, t_coder *coder, t_dongle *dongle);
+void scheduler_add(t_argumnets *args, t_coder *coder, t_dongle *dongle);
 // parsing
 int parsing_args(char **argv, int argc, t_argumnets **arguments);
 
 t_dongle *dongles_allocation(unsigned long number);
 int world_data_alocation(t_world_data **world_data, t_argumnets *args);
-t_coder *coders_allocation(t_argumnets *args, t_dongle *dongles, int *is_runnung);
+t_coder *coders_allocation(t_argumnets *args, t_dongle *dongles, t_world_data *world_data);
 
 // coders
 int coders_create(t_coder *coders, long num);
@@ -77,5 +106,7 @@ int coders_create(t_coder *coders, long num);
 // actions
 void take_dongle_wraper(t_coder *coder);
 void giveup_dongle_wraper(t_coder *coder);
-void compile(int coder_id, long time_to_compile);
+void compile(t_coder *coder);
+void debug(t_coder *coder);
+void refractoring(t_coder *coder);
 #endif

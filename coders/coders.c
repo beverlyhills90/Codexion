@@ -3,11 +3,23 @@
 void *coders_routine(void *args)
 {
     t_coder *coder = (t_coder *)args;
-    while (*(coder->is_running) == 1)
+    printf("IM ALIVE %d\n", coder->coder_id);
+    while (safe_world_state(coder->world_data) == RUNNING)
     {
         take_dongle_wraper(coder);
-        compile(coder->coder_id, coder->args->time_to_compile);
+        if (safe_world_state(coder->world_data) == STOP)
+        {
+            giveup_dongle_wraper(coder); // Молча отдаем и выходим
+            break;
+        }
+        compile(coder);
         giveup_dongle_wraper(coder);
+        if (safe_world_state(coder->world_data) == STOP)
+            break;
+        debug(coder);
+        if (safe_world_state(coder->world_data) == STOP)
+            break;
+        refractoring(coder);
     }
     return NULL;
 }

@@ -12,9 +12,9 @@ void fill_args_struct(char **argv, t_argumnets *arguments)
     arguments->number_of_compiles_required = atoi(argv[6]);
     arguments->dongle_cool_down = atoi(argv[7]);
     if (strcmp(argv[8], "fifo") == 0)
-        arguments->scheduler = 0;
+        arguments->scheduler = FIFO;
     else
-        arguments->scheduler = 1;
+        arguments->scheduler = EDF;
 }
 
 int ft_isnum(char c)

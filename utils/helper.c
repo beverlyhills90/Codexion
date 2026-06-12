@@ -1,18 +1,5 @@
 #include "../codexion.h"
 
-static void ft_bzero(void *str, size_t len)
-{
-	unsigned char *ptr;
-
-	ptr = (unsigned char *)str;
-	while (len > 0)
-	{
-		*ptr = '\0';
-		ptr++;
-		len--;
-	}
-}
-
 void *ft_calloc(size_t nmemb, size_t size)
 {
 	void *res;
@@ -24,7 +11,7 @@ void *ft_calloc(size_t nmemb, size_t size)
 	res = malloc(nmemb * size);
 	if (!res)
 		return (NULL);
-	ft_bzero(res, nmemb * size);
+	memset(res, '\0', nmemb * size);
 	return (res);
 }
 
@@ -36,4 +23,65 @@ long long get_ms()
 	long long milliseconds = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	// if need milisec of this sec tv.tv_sec /1000
 	return milliseconds;
+}
+
+t_running safe_world_state(t_world_data *world_data)
+{
+	t_running res;
+	pthread_mutex_lock(&world_data->world_mutex);
+	if (world_data->is_runnung == RUNNING)
+		res = RUNNING;
+	else
+		res = STOP;
+	pthread_mutex_unlock(&world_data->world_mutex);
+	return (res);
+}
+void safe_world_stop(t_world_data *world_data)
+{
+	size_t i;
+	i = 0;
+	t_dongle *current_dongle;
+	pthread_mutex_lock(&world_data->world_mutex);
+	world_data->is_runnung = STOP;
+	while (i < world_data->args->number_of_coders)
+	{
+		pthread_cond_broadcast(&world_data->dongles[i].conditional);
+		i++;
+	}
+	pthread_mutex_unlock(&world_data->world_mutex);
+}
+
+int safe_burnout_cheak(t_coder *coder)
+{
+	long long time_to;
+	int res;
+	pthread_mutex_lock(&coder->mutex);
+	time_to = coder->time_from_last_compilation + coder->args->time_to_burnout;
+	if (get_ms() >= time_to)
+		res = 0;
+	else
+		res = 1;
+	pthread_mutex_unlock(&coder->mutex);
+	return (res);
+}
+
+t_state safe_coder_state(t_coder *coder)
+{
+	pthread_mutex_lock(&coder->mutex);
+	if (coder->number_of_compiles >= coder->args->number_of_compiles_required)
+	{
+		pthread_mutex_unlock(&coder->mutex);
+		return (DONE);
+	}
+	pthread_mutex_unlock(&coder->mutex);
+	return (NOT_DONE);
+}
+
+unsigned long get_num_of_coders(t_world_data *world_data)
+{
+	unsigned long res;
+	pthread_mutex_lock(&world_data->world_mutex);
+	res = world_data->args->number_of_coders;
+	pthread_mutex_unlock(&world_data->world_mutex);
+	return (res);
 }

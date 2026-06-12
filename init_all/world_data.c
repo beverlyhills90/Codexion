@@ -11,9 +11,9 @@ int world_data_alocation(t_world_data **world_data, t_argumnets *args)
     (*world_data)->time_of_start = get_ms();
     pthread_mutex_init(&(*world_data)->world_mutex, NULL);
     (*world_data)->args = args;
-    (*world_data)->coders = coders_allocation(args, (*world_data)->dongles, &(*world_data)->is_runnung);
+    (*world_data)->coders = coders_allocation(args, (*world_data)->dongles, (*world_data));
     if (!(*world_data)->coders)
         return (1); // TODO free all
-    (*world_data)->is_runnung = 1;
+    (*world_data)->is_runnung = RUNNING;
     return (0);
 }
