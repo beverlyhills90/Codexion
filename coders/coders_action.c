@@ -7,13 +7,13 @@ void compile(t_coder *coder)
     pthread_mutex_lock(&coder->mutex);
     coder->is_working = 1;
     log_time = get_ms() - coder->world_data->time_of_start;
-
-    printf("%lu %lu coder is compiling\n", log_time, coder->coder_id);
+    printf("%lld %u coder is compiling\n", log_time, coder->coder_id);
     coder->time_from_last_compilation = get_ms();
     pthread_mutex_unlock(&coder->mutex);
 
-    usleep(coder->args->time_to_compile);
-
+    usleep(coder->args->time_to_compile * 1000);
+    if (safe_world_state(coder->world_data) == STOP)
+        return;
     pthread_mutex_lock(&coder->mutex);
     coder->number_of_compiles += 1;
     coder->time_from_last_compilation = get_ms();
@@ -24,14 +24,14 @@ void debug(t_coder *coder)
     long long log_time;
     log_time = get_ms() - coder->world_data->time_of_start;
 
-    usleep(coder->world_data->args->time_to_debug);
-    printf("%lu %lu is debuging\n", log_time, coder->coder_id);
+    usleep(coder->world_data->args->time_to_debug * 1000);
+    printf("%lld %u is debuging\n", log_time, coder->coder_id);
 }
 void refractoring(t_coder *coder)
 {
     long long log_time;
     log_time = get_ms() - coder->world_data->time_of_start;
 
-    usleep(coder->world_data->args->time_to_refactor);
-    printf("%lu %lu is refractoring\n", log_time, coder->coder_id);
+    usleep(coder->world_data->args->time_to_refactor * 1000);
+    printf("%lld %u is refractoring\n", log_time, coder->coder_id);
 }

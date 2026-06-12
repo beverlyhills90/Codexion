@@ -1,5 +1,26 @@
 #include "../codexion.h"
 
+t_state safe_coder_state(t_coder *coder)
+{
+    pthread_mutex_lock(&coder->mutex);
+    if (coder->number_of_compiles >= coder->args->number_of_compiles_required)
+    {
+        pthread_mutex_unlock(&coder->mutex);
+        return (DONE);
+    }
+    pthread_mutex_unlock(&coder->mutex);
+    return (NOT_DONE);
+}
+
+unsigned long get_num_of_coders(t_world_data *world_data)
+{
+    unsigned long res;
+    pthread_mutex_lock(&world_data->world_mutex);
+    res = world_data->args->number_of_coders;
+    pthread_mutex_unlock(&world_data->world_mutex);
+    return (res);
+}
+
 void *monitor(void *args)
 {
     t_world_data *world_data;
@@ -22,8 +43,8 @@ void *monitor(void *args)
             if (safe_burnout_cheak(current_coder) == 0)
             {
                 pthread_mutex_lock(&current_coder->mutex);
-                printf("%d coder is burned out\n", current_coder->coder_id);
-
+                printf("%lld %d coder is burned out\n", get_ms() - world_data->time_of_start, current_coder->coder_id);
+                pthread_mutex_unlock(&current_coder->mutex);
                 safe_world_stop(world_data);
                 return (NULL);
             }

@@ -9,7 +9,7 @@ void *coders_routine(void *args)
         take_dongle_wraper(coder);
         if (safe_world_state(coder->world_data) == STOP)
         {
-            giveup_dongle_wraper(coder); // Молча отдаем и выходим
+            giveup_dongle_wraper(coder);
             break;
         }
         compile(coder);

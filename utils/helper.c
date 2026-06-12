@@ -64,24 +64,3 @@ int safe_burnout_cheak(t_coder *coder)
 	pthread_mutex_unlock(&coder->mutex);
 	return (res);
 }
-
-t_state safe_coder_state(t_coder *coder)
-{
-	pthread_mutex_lock(&coder->mutex);
-	if (coder->number_of_compiles >= coder->args->number_of_compiles_required)
-	{
-		pthread_mutex_unlock(&coder->mutex);
-		return (DONE);
-	}
-	pthread_mutex_unlock(&coder->mutex);
-	return (NOT_DONE);
-}
-
-unsigned long get_num_of_coders(t_world_data *world_data)
-{
-	unsigned long res;
-	pthread_mutex_lock(&world_data->world_mutex);
-	res = world_data->args->number_of_coders;
-	pthread_mutex_unlock(&world_data->world_mutex);
-	return (res);
-}

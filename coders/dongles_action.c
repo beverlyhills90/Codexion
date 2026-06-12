@@ -13,13 +13,13 @@ void take_dongle(t_dongle *dongle, t_coder *coder)
     }
     if (safe_world_state(coder->world_data) == STOP)
     {
-        scheduler_del(coder->args, coder, dongle);
+        scheduler_del(coder, dongle);
         pthread_mutex_unlock(&dongle->mutex);
         return;
     }
     dongle->is_occupied = 1;
-    scheduler_del(coder->args, coder, dongle);
-    printf("%lu %lu has taken a dongle\n", get_ms() - coder->world_data->time_of_start, coder->coder_id, dongle->dongle_id);
+    scheduler_del(coder, dongle);
+    printf("%lld %u has taken a dongle\n", get_ms() - coder->world_data->time_of_start, coder->coder_id);
     pthread_mutex_unlock(&dongle->mutex);
 }
 

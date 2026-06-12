@@ -13,12 +13,12 @@ int main(int argc, char **argv)
   if (err != 0)
     return (fprintf(stderr, "monitor thread issue"), 1);
   coders_create(world_data->coders, world_data->args->number_of_coders);
+  pthread_join(world_data->thread_id, NULL);
   while (i < world_data->args->number_of_coders)
   {
     pthread_join(world_data->coders[i].thread_id, NULL);
     i++;
   }
-  pthread_join(world_data->thread_id, NULL);
   free(arguments);
   return (0);
 }

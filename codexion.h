@@ -57,7 +57,7 @@ typedef struct s_dongle
 typedef struct s_coder
 {
   pthread_mutex_t mutex;
-  int coder_id;
+  unsigned int coder_id;
   t_dongle *left;
   t_dongle *right;
   unsigned long number_of_compiles;
@@ -88,11 +88,13 @@ void safe_world_stop(t_world_data *world_data);
 int safe_burnout_cheak(t_coder *coder); // 0 - burned 1 - OK
 t_state safe_coder_state(t_coder *coder);
 unsigned long get_num_of_coders(t_world_data *world_data);
+
 // schedulers
-void fifo_scheduler_del(t_dongle *dongle);
 void fifo_scheduler_add(t_dongle *dongle, t_coder *coder);
-void scheduler_del(t_argumnets *args, t_coder *coder, t_dongle *dongle);
+void scheduler_del(t_coder *coder, t_dongle *dongle);
 void scheduler_add(t_argumnets *args, t_coder *coder, t_dongle *dongle);
+void edf_scheduler(t_dongle *dongle, t_coder *coder);
+
 // parsing
 int parsing_args(char **argv, int argc, t_argumnets **arguments);
 
@@ -109,4 +111,5 @@ void giveup_dongle_wraper(t_coder *coder);
 void compile(t_coder *coder);
 void debug(t_coder *coder);
 void refractoring(t_coder *coder);
+
 #endif

@@ -7,7 +7,7 @@ CFLAGS = -g -lpthread -fsanitize=thread
 SRCS = main.c \
 	   utils/parsing.c \
 	   utils/helper.c \
-	   	utils/monitor.c \
+	   utils/monitor.c \
 	   init_all/dongles_allocation.c \
 	   init_all/world_data.c \
 	   init_all/coders_alllocation.c \
@@ -15,6 +15,7 @@ SRCS = main.c \
 	   coders/dongles_action.c \
 	   coders/coders.c \
 	   scheduler/fifo.c \
+	   scheduler/edf.c \
 	   scheduler/scheduler.c
 
 
