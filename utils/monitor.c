@@ -42,9 +42,7 @@ void *monitor(void *args)
             current_coder = &world_data->coders[i];
             if (safe_burnout_cheak(current_coder) == 0)
             {
-                pthread_mutex_lock(&current_coder->mutex);
                 printf("%lld %d coder is burned out\n", get_ms() - world_data->time_of_start, current_coder->coder_id);
-                pthread_mutex_unlock(&current_coder->mutex);
                 safe_world_stop(world_data);
                 return (NULL);
             }
