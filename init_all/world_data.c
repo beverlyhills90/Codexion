@@ -14,7 +14,7 @@ int world_data_alocation(t_world_data **world_data, t_argumnets *args)
     (*world_data)->coders = coders_allocation(args, (*world_data)->dongles, (*world_data));
     if (!(*world_data)->coders)
     {
-        free_dongles(&(*world_data)->dongles, args->number_of_coders);
+        //free_dongles(&(*world_data)->dongles, args->number_of_coders);
         free(*world_data);
         return (1);
     }

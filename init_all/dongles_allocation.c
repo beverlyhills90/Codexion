@@ -2,7 +2,7 @@
 
 t_dongle *dongles_allocation(unsigned long number)
 {
-    int i;
+    size_t i;
     i = 0;
     t_dongle *dongles;
 
@@ -13,11 +13,13 @@ t_dongle *dongles_allocation(unsigned long number)
     {
         dongles[i].cooldown = 0;
         dongles[i].is_occupied = 0;
-        dongles[i].dongle_id = i;
-        pthread_mutex_init(&dongles[i].mutex, NULL);
-        pthread_cond_init(&dongles[i].conditional, NULL);
+        pthread_cond_init(&dongles[i].conditional, NULL);//TODO free
+        printf("init: %p\n",&dongles[i].conditional);
+        pthread_mutex_init(&dongles[i].mutex, NULL);//TODO free
         dongles[i].queue_size = 0;
         i++;
     }
     return (dongles);
 }
+
+

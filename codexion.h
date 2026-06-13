@@ -45,9 +45,9 @@ typedef struct world_data t_world_data;
 
 typedef struct s_dongle
 {
-  pthread_mutex_t mutex;
   int dongle_id;
   pthread_cond_t conditional;
+  pthread_mutex_t mutex;
   int is_occupied;
   long long cooldown;
   t_coder *queue[2];
@@ -105,7 +105,7 @@ t_coder *coders_allocation(t_argumnets *args, t_dongle *dongles, t_world_data *w
 // coders
 int coders_create(t_coder *coders, long num);
 
-void free_coders(t_coder **coders, unsigned int num);
+void free_coders(t_coder *coders, unsigned int num);
 void free_all(t_world_data *world_data);
 void free_dongles(t_dongle **dongles, unsigned int num);
 // actions

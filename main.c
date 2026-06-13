@@ -1,5 +1,4 @@
 #include "codexion.h"
-// TODO suleep to nanosec *1000
 int main(int argc, char **argv)
 {
   t_argumnets *arguments;
@@ -22,6 +21,6 @@ int main(int argc, char **argv)
     pthread_join(world_data->coders[i].thread_id, NULL);
     i++;
   }
-  free_all(&world_data);
+  free_all(world_data);
   return (0);
 }
