@@ -13,8 +13,8 @@ t_dongle	*dongles_allocation(unsigned long number)
 	{
 		dongles[i].cooldown = 0;
 		dongles[i].is_occupied = 0;
-		pthread_cond_init(&dongles[i].conditional, NULL); //TODO free
-		printf("init: %p\n", &dongles[i].conditional);
+		if(pthread_cond_init(&dongles[i].conditional, NULL) != 0)
+            return(free_dongles(&dongles,i),NULL);
 		pthread_mutex_init(&dongles[i].mutex, NULL); //TODO free
 		dongles[i].queue_size = 0;
 		i++;

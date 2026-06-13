@@ -10,7 +10,8 @@ int	main(int argc, char **argv)
 	i = 0;
 	if (parsing_args(argv, argc, &arguments) != 0)
 		return (1);
-	world_data_alocation(&world_data, arguments);
+	if(world_data_alocation(&world_data, arguments) != 0)
+		return (free(arguments),1);
 	printf("n: %lu \n", world_data->args->time_to_burnout);
 	err = pthread_create(&world_data->thread_id, NULL, monitor,
 			(void *)world_data);

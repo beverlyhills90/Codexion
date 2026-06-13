@@ -53,11 +53,11 @@ int	validate_args(char **argv, int argc)
 
 int	parsing_args(char **argv, int argc, t_argumnets **arguments)
 {
-	*arguments = ft_calloc(1, sizeof(t_argumnets));
-	if (!arguments)
-		return (fprintf(stderr, "allocation failed"), 1);
 	if (validate_args(argv, argc) != 0)
-		return (free(*arguments), 1);
+		return (1);
+	*arguments = ft_calloc(1, sizeof(t_argumnets));
+	if (!*arguments)
+		return (fprintf(stderr, "allocation failed"), 1);
 	fill_args_struct(argv, *arguments);
 	return (0);
 }

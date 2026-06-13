@@ -5,7 +5,6 @@ void	*coders_routine(void *args)
 	t_coder	*coder;
 
 	coder = (t_coder *)args;
-	printf("IM ALIVE %d\n", coder->coder_id);
 	while (safe_world_state(coder->world_data) == RUNNING)
 	{
 		take_dongle_wraper(coder);
