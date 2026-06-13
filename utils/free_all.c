@@ -1,8 +1,8 @@
 #include "../codexion.h"
 
-void	free_dongles(t_dongle **dongles, unsigned int num)
+void free_dongles(t_dongle **dongles, unsigned int num)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (i < num)
@@ -14,9 +14,9 @@ void	free_dongles(t_dongle **dongles, unsigned int num)
 	free(*dongles);
 }
 
-void	free_coders(t_coder *coders, unsigned int num)
+void free_coders(t_coder *coders, unsigned int num)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (i < num)
@@ -27,11 +27,10 @@ void	free_coders(t_coder *coders, unsigned int num)
 	free(coders);
 }
 
-void	free_all(t_world_data *world_data)
+void free_all(t_world_data *world_data)
 {
 	free_dongles(&world_data->dongles, world_data->args->number_of_coders);
 	free_coders(world_data->coders, world_data->args->number_of_coders);
 	pthread_mutex_destroy(&world_data->world_mutex);
-	free(world_data->args);
 	free(world_data);
 }

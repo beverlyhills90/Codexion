@@ -3,7 +3,6 @@ NAME = codexion
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g 
 
-
 SRCS = main.c \
 	   utils/parsing.c \
 	   utils/helper.c \
@@ -42,6 +41,10 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
+fun:
+	@make re CC=x86_64-linux-gnu-gcc CFLAGS="$(filter-out -m64,$(CFLAGS))"
+
 re: fclean all
+
 
 .PHONY: all clean fclean re bonus
