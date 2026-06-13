@@ -1,25 +1,23 @@
 #include "../codexion.h"
 
-t_dongle *dongles_allocation(unsigned long number)
+t_dongle	*dongles_allocation(unsigned long number)
 {
-    size_t i;
-    i = 0;
-    t_dongle *dongles;
+	size_t		i;
+	t_dongle	*dongles;
 
-    dongles = ft_calloc(number, sizeof(t_dongle));
-    if (!dongles)
-        return (NULL);
-    while (i < number)
-    {
-        dongles[i].cooldown = 0;
-        dongles[i].is_occupied = 0;
-        pthread_cond_init(&dongles[i].conditional, NULL);//TODO free
-        printf("init: %p\n",&dongles[i].conditional);
-        pthread_mutex_init(&dongles[i].mutex, NULL);//TODO free
-        dongles[i].queue_size = 0;
-        i++;
-    }
-    return (dongles);
+	i = 0;
+	dongles = ft_calloc(number, sizeof(t_dongle));
+	if (!dongles)
+		return (NULL);
+	while (i < number)
+	{
+		dongles[i].cooldown = 0;
+		dongles[i].is_occupied = 0;
+		pthread_cond_init(&dongles[i].conditional, NULL); //TODO free
+		printf("init: %p\n", &dongles[i].conditional);
+		pthread_mutex_init(&dongles[i].mutex, NULL); //TODO free
+		dongles[i].queue_size = 0;
+		i++;
+	}
+	return (dongles);
 }
-
-

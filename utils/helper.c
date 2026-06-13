@@ -1,8 +1,8 @@
 #include "../codexion.h"
 
-void *ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void *res;
+	void	*res;
 
 	if (nmemb == 0 || size == 0)
 		return (malloc(1));
@@ -15,19 +15,21 @@ void *ft_calloc(size_t nmemb, size_t size)
 	return (res);
 }
 
-long long get_ms()
+long long	get_ms(void)
 {
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
+	struct timeval	tv;
+	long long		milliseconds;
 
-	long long milliseconds = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	gettimeofday(&tv, NULL);
+	milliseconds = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	// if need milisec of this sec tv.tv_sec /1000
-	return milliseconds;
+	return (milliseconds);
 }
 
-t_running safe_world_state(t_world_data *world_data)
+t_running	safe_world_state(t_world_data *world_data)
 {
-	t_running res;
+	t_running	res;
+
 	pthread_mutex_lock(&world_data->world_mutex);
 	if (world_data->is_runnung == RUNNING)
 		res = RUNNING;
@@ -36,11 +38,12 @@ t_running safe_world_state(t_world_data *world_data)
 	pthread_mutex_unlock(&world_data->world_mutex);
 	return (res);
 }
-void safe_world_stop(t_world_data *world_data)
+void	safe_world_stop(t_world_data *world_data)
 {
-	size_t i;
+	size_t		i;
+	t_dongle	*current_dongle;
+
 	i = 0;
-	t_dongle *current_dongle;
 	pthread_mutex_lock(&world_data->world_mutex);
 	world_data->is_runnung = STOP;
 	while (i < world_data->args->number_of_coders)
@@ -51,10 +54,11 @@ void safe_world_stop(t_world_data *world_data)
 	pthread_mutex_unlock(&world_data->world_mutex);
 }
 
-int safe_burnout_cheak(t_coder *coder)
+int	safe_burnout_cheak(t_coder *coder)
 {
-	long long time_to;
-	int res;
+	long long	time_to;
+	int			res;
+
 	pthread_mutex_lock(&coder->mutex);
 	time_to = coder->time_from_last_compilation + coder->args->time_to_burnout;
 	if (get_ms() >= time_to)
