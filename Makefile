@@ -1,7 +1,7 @@
 NAME = codexion
 
 CC = cc
-CFLAGS = -g -lpthread
+CFLAGS = -Wall -Wextra -Werror -g 
 
 
 SRCS = main.c \
@@ -30,7 +30,7 @@ HEADER = codexion.h
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lpthread
 
 
 %.o: %.c $(HEADER)

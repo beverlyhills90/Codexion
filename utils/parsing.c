@@ -2,8 +2,6 @@
 
 void	fill_args_struct(char **argv, t_argumnets *arguments)
 {
-	struct timeval	time;
-
 	arguments->number_of_coders = atoi(argv[1]);
 	arguments->time_to_burnout = atoi(argv[2]);
 	arguments->time_to_compile = atoi(argv[3]);

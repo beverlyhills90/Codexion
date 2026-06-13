@@ -91,7 +91,7 @@ unsigned long				get_num_of_coders(t_world_data *world_data);
 // schedulers
 void						fifo_scheduler_add(t_dongle *dongle,
 								t_coder *coder);
-void						scheduler_del(t_coder *coder, t_dongle *dongle);
+void						scheduler_del(t_dongle *dongle);
 void						scheduler_add(t_argumnets *args, t_coder *coder,
 								t_dongle *dongle);
 void						edf_scheduler(t_dongle *dongle, t_coder *coder);

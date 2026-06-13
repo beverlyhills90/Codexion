@@ -5,7 +5,7 @@ int	main(int argc, char **argv)
 	t_argumnets		*arguments;
 	t_world_data	*world_data;
 	int				err;
-	int				i;
+	unsigned long	i;
 
 	i = 0;
 	if (parsing_args(argv, argc, &arguments) != 0)

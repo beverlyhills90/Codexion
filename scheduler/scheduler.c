@@ -12,7 +12,7 @@ void	scheduler_add(t_argumnets *args, t_coder *coder, t_dongle *dongle)
 	}
 }
 
-void	scheduler_del(t_coder *coder, t_dongle *dongle)
+void	scheduler_del(t_dongle *dongle)
 {
 	dongle->queue[0] = dongle->queue[1];
 	dongle->queue[1] = NULL;
