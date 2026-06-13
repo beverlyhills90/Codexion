@@ -55,6 +55,6 @@ void *monitor(void *args)
             safe_world_stop(world_data);
             return (NULL);
         }
-        usleep(2000);
+        usleep(500);
     }
 }

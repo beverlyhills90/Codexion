@@ -72,7 +72,7 @@ typedef struct world_data
 {
   pthread_mutex_t world_mutex;
   pthread_t thread_id;
-  t_running is_runnung; // 0 - not 1 - running
+  t_running is_runnung;
   t_coder *coders;
   t_dongle *dongles;
   t_argumnets *args;
@@ -105,6 +105,9 @@ t_coder *coders_allocation(t_argumnets *args, t_dongle *dongles, t_world_data *w
 // coders
 int coders_create(t_coder *coders, long num);
 
+void free_coders(t_coder **coders, unsigned int num);
+void free_all(t_world_data *world_data);
+void free_dongles(t_dongle **dongles, unsigned int num);
 // actions
 void take_dongle_wraper(t_coder *coder);
 void giveup_dongle_wraper(t_coder *coder);

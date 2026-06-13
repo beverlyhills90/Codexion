@@ -1,13 +1,14 @@
 NAME = codexion
 
 CC = cc
-CFLAGS = -g -lpthread -fsanitize=thread
+CFLAGS = -g -lpthread
 
 
 SRCS = main.c \
 	   utils/parsing.c \
 	   utils/helper.c \
 	   utils/monitor.c \
+	   utils/free_all.c \
 	   init_all/dongles_allocation.c \
 	   init_all/world_data.c \
 	   init_all/coders_alllocation.c \
