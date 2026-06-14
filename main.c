@@ -3,11 +3,9 @@
 int	join_coders(t_world_data *world_data)
 {
 	unsigned long	i;
-	unsigned long	j;
 	int				err;
 
 	i = 0;
-	j = 0;
 	while (i < world_data->args->number_of_coders)
 	{
 		err = pthread_join(world_data->coders[i].thread_id, NULL);

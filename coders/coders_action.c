@@ -15,6 +15,7 @@ void	compile(t_coder *coder)
 	pthread_mutex_unlock(&coder->mutex);
 	usleep(coder->args->time_to_compile * 1000);
 }
+
 void	debug(t_coder *coder)
 {
 	long long	log_time;
@@ -23,9 +24,11 @@ void	debug(t_coder *coder)
 	printf("%lld %u is debuging\n", log_time, coder->coder_id);
 	usleep(coder->world_data->args->time_to_debug * 1000);
 }
+
 void	refractoring(t_coder *coder)
 {
-	long long log_time;
+	long long	log_time;
+
 	log_time = get_ms() - coder->world_data->time_of_start;
 	printf("%lld %u is refractoring\n", log_time, coder->coder_id);
 	usleep(coder->world_data->args->time_to_refactor * 1000);

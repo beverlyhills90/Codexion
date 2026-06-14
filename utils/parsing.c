@@ -21,6 +21,7 @@ int	ft_isnum(char c)
 		return (1);
 	return (0);
 }
+
 // 0 - invalid input 1 - valid input
 int	validate_args(char **argv, int argc)
 {
@@ -38,7 +39,7 @@ int	validate_args(char **argv, int argc)
 			if (ft_isnum(argv[i][j]) != 1)
 			{
 				return (fprintf(stderr, "Argument %s is invalid\n", argv[i]),
-						1);
+					1);
 			}
 			j++;
 		}

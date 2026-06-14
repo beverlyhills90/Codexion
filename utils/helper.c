@@ -22,7 +22,6 @@ long long	get_ms(void)
 
 	gettimeofday(&tv, NULL);
 	milliseconds = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-	// if need milisec of this sec tv.tv_sec /1000
 	return (milliseconds);
 }
 
@@ -38,6 +37,7 @@ t_running	safe_world_state(t_world_data *world_data)
 	pthread_mutex_unlock(&world_data->world_mutex);
 	return (res);
 }
+
 void	safe_world_stop(t_world_data *world_data)
 {
 	size_t	i;
@@ -61,9 +61,9 @@ int	safe_burnout_cheak(t_coder *coder)
 	pthread_mutex_lock(&coder->mutex);
 	time_to = coder->time_from_last_compilation + coder->args->time_to_burnout;
 	if (get_ms() >= time_to)
-		res = 0;
-	else
 		res = 1;
+	else
+		res = 0;
 	pthread_mutex_unlock(&coder->mutex);
 	return (res);
 }

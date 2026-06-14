@@ -3,9 +3,10 @@
 t_coder	*coders_allocation(t_argumnets *args, t_dongle *dongles,
 		t_world_data *world_data)
 {
-	size_t i;
+	size_t	i;
+	t_coder	*coders;
+
 	i = 0;
-	t_coder *coders;
 	coders = ft_calloc(args->number_of_coders, sizeof(t_coder));
 	if (!coders)
 		return (NULL);

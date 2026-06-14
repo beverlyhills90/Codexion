@@ -2,14 +2,12 @@
 
 void	edf_scheduler(t_dongle *dongle, t_coder *coder)
 {
-	t_coder *coder_1;
-	long long timing_1;
-	long long timing_2;
+	t_coder		*coder_1;
+	long long	timing_1;
+	long long	timing_2;
+
 	if (dongle->queue_size == 0)
-	{
 		dongle->queue[0] = coder;
-		dongle->queue[1] = NULL;
-	}
 	else
 	{
 		coder_1 = dongle->queue[0];

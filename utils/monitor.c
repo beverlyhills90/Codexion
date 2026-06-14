@@ -41,10 +41,10 @@ void	*monitor(void *args)
 		while (i < world_data->args->number_of_coders)
 		{
 			current_coder = &world_data->coders[i];
-			if (safe_burnout_cheak(current_coder) == 0)
+			if (safe_burnout_cheak(current_coder) != 0)
 			{
 				printf("%lld %d coder is burned out\n", get_ms()
-						- world_data->time_of_start, current_coder->coder_id);
+					- world_data->time_of_start, current_coder->coder_id);
 				safe_world_stop(world_data);
 				return (NULL);
 			}
