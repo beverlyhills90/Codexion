@@ -34,13 +34,12 @@ int coders_create(t_coder *coders, size_t num)
 	j = 0;
 	while (i < num)
 	{
-		err = pthread_create(&coders[i].thread_id, NULL, coders_routine,
-							 &coders[i]);
+		err = pthread_create(&coders[i].thread_id, NULL, coders_routine, &coders[i]);
 		if (err != 0)
 		{
-			while (j < i - 1)
+			while (j < i)
 			{
-				pthread_join(coders[i].thread_id, NULL);
+				pthread_join(coders[j].thread_id, NULL);
 				j++;
 			}
 			return (fprintf(stderr, "thread issue"), 1);

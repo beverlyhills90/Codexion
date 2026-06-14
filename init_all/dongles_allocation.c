@@ -15,7 +15,8 @@ t_dongle	*dongles_allocation(unsigned long number)
 		dongles[i].is_occupied = 0;
 		if(pthread_cond_init(&dongles[i].conditional, NULL) != 0)
             return(free_dongles(&dongles,i),NULL);
-		pthread_mutex_init(&dongles[i].mutex, NULL); //TODO free
+		if(pthread_mutex_init(&dongles[i].mutex, NULL) != 0)
+			return(free_dongles(&dongles,i),NULL);
 		dongles[i].queue_size = 0;
 		i++;
 	}
