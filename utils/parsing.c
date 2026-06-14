@@ -38,7 +38,7 @@ int	validate_args(char **argv, int argc)
 			if (ft_isnum(argv[i][j]) != 1)
 			{
 				return (fprintf(stderr, "Argument %s is invalid\n", argv[i]),
-					1);
+						1);
 			}
 			j++;
 		}

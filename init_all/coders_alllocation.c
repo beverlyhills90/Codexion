@@ -17,8 +17,8 @@ t_coder	*coders_allocation(t_argumnets *args, t_dongle *dongles,
 		coders[i].time_from_last_compilation = get_ms();
 		coders[i].left = &dongles[i];
 		coders[i].right = &dongles[(i + 1) % args->number_of_coders];
-		if(pthread_mutex_init(&coders[i].mutex, NULL) != 0)
-			return(free_coders(coders,i),NULL);
+		if (pthread_mutex_init(&coders[i].mutex, NULL) != 0)
+			return (free_coders(coders, i), NULL);
 		coders[i].world_data = world_data;
 		coders[i].is_working = 0;
 		i++;

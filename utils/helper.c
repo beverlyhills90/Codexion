@@ -40,7 +40,7 @@ t_running	safe_world_state(t_world_data *world_data)
 }
 void	safe_world_stop(t_world_data *world_data)
 {
-	size_t		i;
+	size_t	i;
 
 	i = 0;
 	pthread_mutex_lock(&world_data->world_mutex);
