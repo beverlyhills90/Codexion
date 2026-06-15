@@ -107,7 +107,7 @@ t_coder	*coders_allocation(t_argumnets *args,
 		t_dongle *dongles, t_world_data *world_data);
 
 // coders
-int	coders_create(t_coder *coders, size_t num);
+int	coders_create(t_coder *coders, size_t num,t_world_data *world_data);
 
 void	free_coders(t_coder *coders, unsigned int num);
 void	free_all(t_world_data *world_data);

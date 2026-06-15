@@ -25,7 +25,7 @@ void	*coders_routine(void *args)
 	return (NULL);
 }
 
-int	coders_create(t_coder *coders, size_t num)
+int	coders_create(t_coder *coders, size_t num,t_world_data *world_data)
 {
 	size_t	i;
 	size_t	j;
@@ -38,7 +38,8 @@ int	coders_create(t_coder *coders, size_t num)
 		err = pthread_create(&coders[i].thread_id, NULL, coders_routine,
 				&coders[i]);
 		if (err != 0)
-		{
+		{	
+			safe_world_stop(world_data);
 			while (j < i)
 			{
 				pthread_join(coders[j].thread_id, NULL);
