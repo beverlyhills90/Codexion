@@ -45,7 +45,7 @@ int	coders_create(t_coder *coders, size_t num,t_world_data *world_data)
 				pthread_join(coders[j].thread_id, NULL);
 				j++;
 			}
-			return (fprintf(stderr, "thread issue"), 1);
+			return (1);
 		}
 		i++;
 	}

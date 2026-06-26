@@ -2,21 +2,23 @@
 
 int join_coders(t_world_data *world_data)
 {
-	unsigned long i;
-	int err;
+    unsigned long i;
+    int err;
+    int has_error;
 
-	i = 0;
-	while (i < world_data->args->number_of_coders)
-	{
-		err = pthread_join(world_data->coders[i].thread_id, NULL);
-		if (err != 0)
-		{
-			pthread_join(world_data->thread_id, NULL);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
+    i = 0;
+    has_error = 0;
+    while (i < world_data->args->number_of_coders)
+    {
+        err = pthread_join(world_data->coders[i].thread_id, NULL);
+        if (err != 0)
+            has_error = 1;
+        i++;
+    }
+    if (pthread_join(world_data->thread_id, NULL) != 0)
+        has_error = 1;
+
+    return (has_error); 
 }
 
 int join_all(t_world_data *world_data)
