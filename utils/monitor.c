@@ -36,7 +36,7 @@ void	*monitor(void *args)
 	{
 		done = 0;
 		if (safe_world_state(world_data) == STOP)
-			return (safe_world_stop(world_data), NULL);
+			return (NULL);
 		i = 0;
 		while (i < world_data->args->number_of_coders)
 		{
