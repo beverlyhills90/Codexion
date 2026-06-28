@@ -45,12 +45,15 @@ void	safe_world_stop(t_world_data *world_data)
 	i = 0;
 	pthread_mutex_lock(&world_data->world_mutex);
 	world_data->is_runnung = STOP;
+	pthread_mutex_unlock(&world_data->world_mutex);
+
 	while (i < world_data->args->number_of_coders)
 	{
+		pthread_mutex_lock(&world_data->dongles[i].mutex);
 		pthread_cond_broadcast(&world_data->dongles[i].conditional);
+		pthread_mutex_unlock(&world_data->dongles[i].mutex);
 		i++;
 	}
-	pthread_mutex_unlock(&world_data->world_mutex);
 }
 
 int	safe_burnout_cheak(t_coder *coder)

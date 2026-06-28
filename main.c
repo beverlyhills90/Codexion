@@ -36,8 +36,6 @@ int join_all(t_world_data *world_data)
 	}
 	if (join_coders(world_data) != 0)
 		return (1);
-	if (pthread_join(world_data->thread_id, NULL) != 0)
-		return (1);
 	return (0);
 }
 
