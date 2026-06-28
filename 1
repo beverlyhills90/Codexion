@@ -1,0 +1,88 @@
+==815629== Helgrind, a thread error detector
+==815629== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==815629== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==815629== Command: ./codexion 3 160 40 40 40 3 20 fifo
+==815629== 
+==815629== ---Thread-Announcement------------------------------------------
+==815629== 
+==815629== Thread #4 was created
+==815629==    at 0x499FA73: clone (clone.S:76)
+==815629==    by 0x49A096E: __clone_internal (clone-internal.c:83)
+==815629==    by 0x490E6D8: create_thread (pthread_create.c:295)
+==815629==    by 0x490F1FF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==815629==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==815629==    by 0x402710: coders_create (coders.c:38)
+==815629==    by 0x40134F: join_all (main.c:31)
+==815629==    by 0x40141E: main (main.c:52)
+==815629== 
+==815629== ----------------------------------------------------------------
+==815629== 
+==815629== Thread #4: pthread_cond_{signal,broadcast}: associated lock is not held by calling thread
+==815629==    at 0x48513D6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==815629==    by 0x490E02E: __pthread_cond_wait_common (pthread_cond_wait.c:516)
+==815629==    by 0x490E02E: pthread_cond_timedwait@@GLIBC_2.3.2 (pthread_cond_wait.c:652)
+==815629==    by 0x48545D4: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==815629==    by 0x402400: take_dongle (dongles_action.c:15)
+==815629==    by 0x402530: take_dongle_wraper (dongles_action.c:45)
+==815629==    by 0x402622: coders_routine (coders.c:10)
+==815629==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==815629==    by 0x490EAC2: start_thread (pthread_create.c:442)
+==815629==    by 0x499FA83: clone (clone.S:100)
+==815629== 
+==815629== ---Thread-Announcement------------------------------------------
+==815629== 
+==815629== Thread #5 was created
+==815629==    at 0x499FA73: clone (clone.S:76)
+==815629==    by 0x49A096E: __clone_internal (clone-internal.c:83)
+==815629==    by 0x490E6D8: create_thread (pthread_create.c:295)
+==815629==    by 0x490F1FF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==815629==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==815629==    by 0x402710: coders_create (coders.c:38)
+==815629==    by 0x40134F: join_all (main.c:31)
+==815629==    by 0x40141E: main (main.c:52)
+==815629== 
+==815629== ----------------------------------------------------------------
+==815629== 
+==815629== Thread #5: pthread_cond_{signal,broadcast}: associated lock is not held by calling thread
+==815629==    at 0x48513D6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==815629==    by 0x490E02E: __pthread_cond_wait_common (pthread_cond_wait.c:516)
+==815629==    by 0x490E02E: pthread_cond_timedwait@@GLIBC_2.3.2 (pthread_cond_wait.c:652)
+==815629==    by 0x48545D4: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==815629==    by 0x402400: take_dongle (dongles_action.c:15)
+==815629==    by 0x402546: take_dongle_wraper (dongles_action.c:49)
+==815629==    by 0x402622: coders_routine (coders.c:10)
+==815629==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==815629==    by 0x490EAC2: start_thread (pthread_create.c:442)
+==815629==    by 0x499FA83: clone (clone.S:100)
+==815629== 
+==815629== ---Thread-Announcement------------------------------------------
+==815629== 
+==815629== Thread #3 was created
+==815629==    at 0x499FA73: clone (clone.S:76)
+==815629==    by 0x49A096E: __clone_internal (clone-internal.c:83)
+==815629==    by 0x490E6D8: create_thread (pthread_create.c:295)
+==815629==    by 0x490F1FF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==815629==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==815629==    by 0x402710: coders_create (coders.c:38)
+==815629==    by 0x40134F: join_all (main.c:31)
+==815629==    by 0x40141E: main (main.c:52)
+==815629== 
+==815629== ----------------------------------------------------------------
+==815629== 
+==815629== Thread #3: pthread_cond_{signal,broadcast}: dubious: associated lock is not held by any thread
+==815629==    at 0x48513D6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==815629==    by 0x490E02E: __pthread_cond_wait_common (pthread_cond_wait.c:516)
+==815629==    by 0x490E02E: pthread_cond_timedwait@@GLIBC_2.3.2 (pthread_cond_wait.c:652)
+==815629==    by 0x48545D4: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==815629==    by 0x402400: take_dongle (dongles_action.c:15)
+==815629==    by 0x402546: take_dongle_wraper (dongles_action.c:49)
+==815629==    by 0x402622: coders_routine (coders.c:10)
+==815629==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==815629==    by 0x490EAC2: start_thread (pthread_create.c:442)
+==815629==    by 0x499FA83: clone (clone.S:100)
+==815629== 
+==815629== 
+==815629== Use --history-level=approx or =none to gain increased speed, at
+==815629== the cost of reduced accuracy of conflicting-access information
+==815629== For lists of detected and suppressed errors, rerun with: -s
+==815629== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 27099 from 148)
