@@ -38,7 +38,7 @@ int join_all(t_world_data *world_data)
 		return (1);
 	return (0);
 }
-
+//TODO log_mutex
 int main(int argc, char **argv)
 {
 	t_argumnets *arguments;

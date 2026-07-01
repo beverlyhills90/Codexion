@@ -22,9 +22,11 @@ void	take_dongle(t_dongle *dongle, t_coder *coder)
 	}
 	dongle->is_occupied = 1;
 	scheduler_del(dongle);
+	pthread_mutex_lock(&coder->world_data->log_mutex);
 	printf("%lld %u has taken a dongle\n",
 		get_ms() - coder->world_data->time_of_start,
 		coder->coder_id);
+	pthread_mutex_unlock(&coder->world_data->log_mutex);
 	pthread_mutex_unlock(&dongle->mutex);
 }
 

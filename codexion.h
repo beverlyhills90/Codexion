@@ -70,6 +70,7 @@ typedef struct s_coder
 typedef struct world_data
 {
 	pthread_mutex_t world_mutex;
+	pthread_mutex_t log_mutex;
 	pthread_t thread_id;
 	t_running is_runnung;
 	t_coder *coders;

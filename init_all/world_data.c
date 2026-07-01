@@ -9,14 +9,17 @@ int	world_data_alocation(t_world_data **world_data, t_argumnets *args)
 	if (!(*world_data)->dongles)
 		return (free(*world_data), 1);
 	(*world_data)->time_of_start = get_ms();
-	pthread_mutex_init(&(*world_data)->world_mutex, NULL);
+	if (pthread_mutex_init(&(*world_data)->world_mutex, NULL) != 0)
+		return (free(*world_data), 1);
+	if (pthread_mutex_init(&(*world_data)->log_mutex, NULL) != 0)
+		return (free(*world_data), 1);
 	(*world_data)->args = args;
 	(*world_data)->coders = coders_allocation(args, (*world_data)->dongles,
 			(*world_data));
 	if (!(*world_data)->coders)
 	{
 		free_dongles(&(*world_data)->dongles, args->number_of_coders);
-		free(*world_data);
+		free(*world_data);//TODO free all and destroy mutex
 		return (1);
 	}
 	(*world_data)->is_runnung = RUNNING;
