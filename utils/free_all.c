@@ -32,5 +32,6 @@ void	free_all(t_world_data *world_data)
 	free_dongles(&world_data->dongles, world_data->args->number_of_coders);
 	free_coders(world_data->coders, world_data->args->number_of_coders);
 	pthread_mutex_destroy(&world_data->world_mutex);
+	pthread_mutex_destroy(&world_data->log_mutex);
 	free(world_data);
 }
