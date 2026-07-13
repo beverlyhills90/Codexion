@@ -11,7 +11,7 @@ void	take_dongle(t_dongle *dongle, t_coder *coder)
 			|| dongle->queue[0] != coder))
 	{
 		ts.tv_sec = dongle->cooldown / 1000;
-		ts.tv_nsec = (dongle->cooldown % 1000) * 1000000;
+		ts.tv_nsec = ((dongle->cooldown) % 1000) * 1000000;
 		pthread_cond_timedwait(&dongle->conditional, &dongle->mutex, &ts);
 	}
 	if (safe_world_state(coder->world_data) == STOP)

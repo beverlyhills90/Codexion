@@ -85,7 +85,7 @@ long long	get_ms(void);
 void	*monitor(void *args);
 t_running	safe_world_state(t_world_data *world_data);
 void	safe_world_stop(t_world_data *world_data);
-int	safe_burnout_cheak(t_coder *coder); // 0 - burned 1 - OK
+int	safe_burnout_check(t_coder *coder); // 1 - burned 0 - OK
 t_state	safe_coder_state(t_coder *coder);
 unsigned long	get_num_of_coders(t_world_data *world_data);
 

@@ -56,7 +56,7 @@ void	safe_world_stop(t_world_data *world_data)
 	}
 }
 
-int	safe_burnout_cheak(t_coder *coder)
+int	safe_burnout_check(t_coder *coder)
 {
 	long long	time_to;
 	int			res;

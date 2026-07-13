@@ -29,7 +29,7 @@ HEADER = codexion.h
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lpthread
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -pthread
 
 
 %.o: %.c $(HEADER)

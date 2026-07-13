@@ -22,39 +22,49 @@ unsigned long	get_num_of_coders(t_world_data *world_data)
 	return (res);
 }
 
-void	*monitor(void *args)
+int monitor_loop(t_world_data	*world_data)
 {
-	t_world_data	*world_data;
-	size_t			i;
 	t_coder			*current_coder;
-	unsigned int	done;
+	size_t			i;
+	int	done;
 
-	i = 0;
 	done = 0;
-	world_data = (t_world_data *)args;
-	while (1)
-	{
-		done = 0;
-		if (safe_world_state(world_data) == STOP)
-			return (NULL);
-		i = 0;
-		while (i < world_data->args->number_of_coders)
+	i = 0;
+	while (i < world_data->args->number_of_coders)
 		{
 			current_coder = &world_data->coders[i];
-			if (safe_burnout_cheak(current_coder) != 0)
+			if (safe_burnout_check(current_coder) != 0)
 			{
 				safe_world_stop(world_data);
 				pthread_mutex_lock(&world_data->log_mutex);
 				printf("%lld %d coder is burned out\n", get_ms()
 					- world_data->time_of_start, current_coder->coder_id);
 				pthread_mutex_unlock(&world_data->log_mutex);
-				return (NULL);
+				return (-1);
 			}
 			if (safe_coder_state(current_coder) == DONE)
 				done++;
 			i++;
-		}
-		if (get_num_of_coders(world_data) == done)
+		}	
+	return(done);
+}
+
+void	*monitor(void *args)
+{
+	t_world_data	*world_data;
+	int 			done;
+
+	done = 0;
+	world_data = (t_world_data *)args;
+	while (1)
+	{
+		
+		if (safe_world_state(world_data) == STOP)
+			return (NULL);
+		done = monitor_loop(world_data);
+		if (done == -1)
+			return(NULL);
+		if (get_num_of_coders(world_data) == (unsigned long)done)
 		{
 			safe_world_stop(world_data);
 			return (NULL);
