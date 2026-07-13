@@ -1,5 +1,19 @@
 #include "../codexion.h"
 
+int	mutexes_init(t_world_data **world_data, t_argumnets *args)
+{
+	if (pthread_mutex_init(&(*world_data)->world_mutex, NULL) != 0)
+		return (free_dongles(&(*world_data)->dongles, args->number_of_coders),
+			free(*world_data), 1);
+	if (pthread_mutex_init(&(*world_data)->log_mutex, NULL) != 0)
+	{
+		pthread_mutex_destroy(&(*world_data)->world_mutex);
+		return (free_dongles(&(*world_data)->dongles, args->number_of_coders),
+			free(*world_data), 1);
+	}
+	return (0);
+}
+
 int	world_data_alocation(t_world_data **world_data, t_argumnets *args)
 {
 	*world_data = ft_calloc(1, sizeof(t_world_data));
@@ -9,12 +23,8 @@ int	world_data_alocation(t_world_data **world_data, t_argumnets *args)
 	if (!(*world_data)->dongles)
 		return (free(*world_data), 1);
 	(*world_data)->time_of_start = get_ms();
-	if (pthread_mutex_init(&(*world_data)->world_mutex, NULL) != 0)
-		return (free_dongles(&(*world_data)->dongles,args->number_of_coders),free(*world_data), 1);
-	if (pthread_mutex_init(&(*world_data)->log_mutex, NULL) != 0){
-		pthread_mutex_destroy(&(*world_data)->world_mutex);
-		return (free_dongles(&(*world_data)->dongles,args->number_of_coders), free(*world_data) ,1);
-	}
+	if (mutexes_init(world_data, args) != 0)
+		return (1);
 	(*world_data)->args = args;
 	(*world_data)->coders = coders_allocation(args, (*world_data)->dongles,
 			(*world_data));
@@ -22,8 +32,8 @@ int	world_data_alocation(t_world_data **world_data, t_argumnets *args)
 	{
 		pthread_mutex_destroy(&(*world_data)->world_mutex);
 		pthread_mutex_destroy(&(*world_data)->log_mutex);
-		return (free_dongles(&(*world_data)->dongles, args->number_of_coders),free(*world_data),1);
+		return (free_dongles(&(*world_data)->dongles, args->number_of_coders),
+			free(*world_data), 1);
 	}
-	(*world_data)->is_runnung = RUNNING;
-	return (0);
+	return ((*world_data)->is_runnung = RUNNING, 0);
 }

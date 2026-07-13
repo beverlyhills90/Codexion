@@ -26,7 +26,6 @@ void	debug(t_coder *coder)
 	pthread_mutex_lock(&coder->world_data->log_mutex);
 	printf("%lld %u is debuging\n", log_time, coder->coder_id);
 	pthread_mutex_unlock(&coder->world_data->log_mutex);
-
 	usleep(coder->world_data->args->time_to_debug * 1000);
 }
 

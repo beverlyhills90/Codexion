@@ -46,7 +46,6 @@ void	safe_world_stop(t_world_data *world_data)
 	pthread_mutex_lock(&world_data->world_mutex);
 	world_data->is_runnung = STOP;
 	pthread_mutex_unlock(&world_data->world_mutex);
-
 	while (i < world_data->args->number_of_coders)
 	{
 		pthread_mutex_lock(&world_data->dongles[i].mutex);
