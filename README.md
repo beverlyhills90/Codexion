@@ -135,6 +135,5 @@ Coders sleeping in `pthread_cond_timedwait` wake up, re-check `is_running` under
 - POSIX Threads Programming — Blaise Barney, Lawrence Livermore National Laboratory
 - `man pthread_cond_timedwait`, `man pthread_mutex_lock`
 - Helgrind user manual — Valgrind documentation
-- "The Little Book of Semaphores" — Allen B. Downey (Dining Philosophers chapter)
 
-**AI usage**: Claude was used throughout this project for conceptual research and debugging guidance — understanding how mutexes and condition variables work, reasoning about deadlock conditions, interpreting Helgrind and TSan output, and thinking through the EDF scheduler logic. All code was written by the student.
+**AI usage**: Claude was used throughout this project for conceptual research and debugging guidance — understanding how mutexes and condition variables work, reasoning about deadlock conditions and README.md writing. All code was written by the student.
